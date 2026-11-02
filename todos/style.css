@@ -1,0 +1,160 @@
+.td-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+    /* The panel's body gives the padding; this fills it, so the field to add a task sits at its bottom. */
+    min-height: 100%;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.td-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.td-count {
+    color: var(--muted);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+
+.td-bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--line);
+    overflow: hidden;
+}
+
+.td-fill {
+    display: block;
+    height: 100%;
+    background: var(--ok);
+    transition: width 160ms ease;
+}
+
+.td-link {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.td-link:hover {
+    color: var(--text);
+}
+
+.td-list {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.td-task {
+    display: grid;
+    grid-template-columns: 20px 1fr auto auto;
+    align-items: start;
+    gap: 8px;
+    padding: 6px 4px;
+    border-radius: 8px;
+}
+
+.td-task:hover {
+    background: var(--card);
+}
+
+.td-check {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--bg);
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.td-done .td-check {
+    border-color: var(--ok);
+    background: var(--ok);
+}
+
+.td-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+}
+
+.td-done .td-text {
+    color: var(--muted);
+    /* A quiet line: the box's check already says done, and this must not cut through the letters. */
+    text-decoration: line-through;
+    text-decoration-color: var(--line-strong);
+}
+
+.td-active .td-text {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.td-now {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.td-drop {
+    padding: 0 2px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.td-drop:hover {
+    color: var(--err);
+}
+
+@media (hover: hover) {
+    .td-drop {
+        visibility: hidden;
+    }
+
+    .td-task:hover .td-drop,
+    .td-drop:focus-visible {
+        visibility: visible;
+    }
+}
+
+.td-error {
+    color: var(--err);
+}
+
+.td-add {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.td-add input {
+    flex: 1;
+    min-width: 0;
+}
+
+.td-add .button {
+    flex: none;
+}
