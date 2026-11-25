@@ -170,10 +170,14 @@ export default function createTodos(_host: unknown, web: Web) {
         return { items };
     });
 
-    const guide = section(
-        "todos",
-        () =>
-            "Plan with the `todo_write` tool when the work has three steps or more, or when the person asks for a plan: write the whole list before the first step, and revise it when the plan changes. Set the whole list each time. Mark a task `active` before you start it, and `done` as soon as it is finished, not all at the end. Keep one task `active`. Do not use it for a single step, or for a list that the person asked you to write in your answer.",
+    // Offered, or for scripts alone (codemode's Only mode).
+    const guide = section("todos", ({ agent }) =>
+        agent.tools.some((tool) => tool.name === "todo_write") ||
+        agent.callable.some(
+            (tool) => tool.name === "todo_write" && tool.callers?.includes("model") === false,
+        )
+            ? "Plan with the `todo_write` tool when the work has three steps or more, or when the person asks for a plan: write the whole list before the first step, and revise it when the plan changes. Set the whole list each time. Mark a task `active` before you start it, and `done` as soon as it is finished, not all at the end. Keep one task `active`. Do not use it for a single step, or for a list that the person asked you to write in your answer."
+            : undefined,
     );
 
     return defineExtension({ name: "todos", tools: [todoWrite], sections: [guide] });
